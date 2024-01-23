@@ -161,5 +161,10 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'homework_app': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     },
 }
