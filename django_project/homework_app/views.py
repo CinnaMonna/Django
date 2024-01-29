@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 import logging
+from homework_app.models import Client
 
 logger = logging.getLogger(__name__)
 
@@ -38,3 +39,10 @@ def about(request: HttpRequest):
     logger.debug('About page requested')
 
     return HttpResponse(html)
+
+def clients_view(request):
+    clients = Client.objects.all()
+
+    res_str = '<br>'.join([str(client) for client in clients])
+
+    return HttpResponse(res_str)
