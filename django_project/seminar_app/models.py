@@ -35,7 +35,7 @@ class Author(models.Model):
         return f'{self.name} {self.last_name}'
     
     def __str__(self) -> str:
-        return f'Author: {self.name} {self.last_name}, email: {self.email}'
+        return f'{self.name} {self.last_name}'
     
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -48,4 +48,7 @@ class Post(models.Model):
     
     def __str__(self):
         return f'Post: {self.title}, Author: {self.author}'
+
+
+
     

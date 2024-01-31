@@ -1,0 +1,12 @@
+{% extends 'seminar_app/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %} 
+    <h1>Результаты игры "{{ title }}":</h1>
+    <ul>
+    {% for item in result_list %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

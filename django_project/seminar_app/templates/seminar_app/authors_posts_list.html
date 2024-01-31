@@ -1,0 +1,16 @@
+{% extends 'seminar_app/base.html' %}
+
+{% block title %}All posts of author by id{% endblock %}
+
+{% block content %} 
+    <h1>Все статьи автора {{ author }}:</h1>
+    <ul>
+        {% for post in posts_list %}
+            {% if post.is_published %}
+                <li><a href="{% url 'post1' post_id=post.pk %}">{{ post }}</a></li>
+            {% else %}
+                <li>{{ post }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

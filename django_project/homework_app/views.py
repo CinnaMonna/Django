@@ -5,7 +5,7 @@ from homework_app.models import Client
 
 logger = logging.getLogger(__name__)
 
-def index(request: HttpRequest):
+def index1(request: HttpRequest):
     html = f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -23,7 +23,7 @@ def index(request: HttpRequest):
     return HttpResponse(html)
 
 
-def about(request: HttpRequest):
+def about1(request: HttpRequest):
     html = f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -39,6 +39,7 @@ def about(request: HttpRequest):
     logger.debug('About page requested')
 
     return HttpResponse(html)
+
 
 def clients_view(request):
     clients = Client.objects.all()

@@ -3,10 +3,13 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('heads/', views.heads_tails, name='heads_tails'),
-    path('dice/', views.dice, name='dice'),
-    path('number/', views.random_number, name='random_number'),
+    path('about/', views.about, name='about'),
+    path('heads/<int:count>/', views.heads_tails, name='heads_tails'),
+    path('dice/<int:count>/', views.dice, name='dice'),
+    path('number/<int:count>/', views.random_number, name='random_number'),
     path('authors/', views.authors_view, name='authors'),
     path('posts/', views.post_view, name='posts'),
+    path('authors_posts/<int:author_id>', views.authors_posts_list, name='authors_posts'),
+    path('post1/<int:post_id>', views.post, name='post1'),
     
-]
+] 
