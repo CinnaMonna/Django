@@ -16,8 +16,8 @@ class Command(BaseCommand):
             client = Client(
                 name=f'Client{i}',
                 email=f'client{i}@bk.ru',
-                phone=f'+79112223344',
-                adress=f'fake_adress',
+                phone=f'+7*****{i}',
+                adress=f'adress{i}',
                 )
             
             self.stdout.write(f'Client {client} was created')

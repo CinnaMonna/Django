@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandParser
-import datetime
 
 from homework_app.models import Product
+from random import randint
 
 
 class Command(BaseCommand):
@@ -15,9 +15,9 @@ class Command(BaseCommand):
         for i in range(1, count + 1):
             product = Product(
                 title=f'Product{i}',
-                description=f'some text',
-                price=10.50,
-                count=i,
+                description=f'description{i}',
+                price=randint(10,50)*1.1,
+                count=randint(1,10),
                 )
             
             self.stdout.write(f'Product {product} was created')

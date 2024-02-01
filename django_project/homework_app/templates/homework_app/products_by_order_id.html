@@ -1,0 +1,13 @@
+{% extends 'homework_app/base.html' %}
+
+{% block title %}All products in order by id{% endblock %}
+
+{% block content %} 
+    <h1>Все товары в заказе:</h1>
+    <h2>Покупатель: {{ order.client.name }}, заказ №{{ order.id }} от {{ order.order_date }}:</h2>
+    <ul>
+        {% for product in products %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

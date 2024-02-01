@@ -1,0 +1,25 @@
+{% extends 'homework_app/base.html' %}
+
+{% block title %}All products from all orders by client_id{% endblock %}
+
+{% block content %} 
+    <h1>Все товары из всех заказов клиента {{ client }}:</h1>
+    <h2>Товары в заказах за последние 7 дней:</h2>
+    <ul>
+        {% for product in products1 %}
+            <li>{{ product }}</li>
+        {% endfor %}  
+    </ul>
+    <h2>Товары в заказах за последние 30 дней:</h2>
+    <ul>
+        {% for product in products2 %}
+            <li>{{ product }}</li>
+        {% endfor %}  
+    </ul>
+    <h2>Товары в заказах за последние 365 дней:</h2>
+    <ul>
+        {% for product in products3 %}
+            <li>{{ product }}</li>
+        {% endfor %}  
+    </ul>
+{% endblock %}
