@@ -17,7 +17,6 @@ class Command(BaseCommand):
                 title=f'Product{i}',
                 description=f'description{i}',
                 price=randint(10,50)*1.1,
-                count=randint(1,10),
                 )
             
             self.stdout.write(f'Product {product} was created')

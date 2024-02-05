@@ -6,5 +6,5 @@ class ProductUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['title', 'description', 'price'] 
-    
+    image = forms.ImageField()
 

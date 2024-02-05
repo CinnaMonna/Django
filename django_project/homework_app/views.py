@@ -5,6 +5,7 @@ from homework_app.models import Client, Order, Product
 from django.shortcuts import render, get_object_or_404
 from datetime import datetime, timezone
 from .forms import ProductUpdateForm
+from django.core.files.storage import FileSystemStorage
 
 logger = logging.getLogger(__name__)
 
@@ -98,14 +99,16 @@ def products_by_client_id(request, client_id):
 
 def product_update(request):
     if request.method == 'POST':
-        form = ProductUpdateForm(request.POST)
+        form = ProductUpdateForm(request.POST, request.FILES)
         message = 'Ошибка в данных'
         if form.is_valid():
+            choice_product = form.cleaned_data['choice_product_to_update']
             title = form.cleaned_data['title']
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
-            choice_product = form.cleaned_data['choice_product_to_update']
-
+            image = form.cleaned_data['image'] 
+            fs = FileSystemStorage()
+            fs.save(image.name, image)         
 
             logger.info(f'Получили данные для обновления товара: {title}')
 
@@ -113,11 +116,12 @@ def product_update(request):
             product.title = title
             product.description = description
             product.price = price
+            product.image = request.FILES['image']
             product.save()
             message = 'Товар обновлен'
 
     else:
         form = ProductUpdateForm()
-        message = 'Заполните форму'
+        message = 'Заполните форму для обновления данных о товаре'
     return render(request, 'homework_app/product_update_form.html', {'form' : form, 'message' : message})
 
