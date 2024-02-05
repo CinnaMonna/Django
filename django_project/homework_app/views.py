@@ -1,9 +1,10 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 import logging
 from homework_app.models import Client, Order, Product
 from django.shortcuts import render, get_object_or_404
 from datetime import datetime, timezone
+from .forms import ProductUpdateForm
 
 logger = logging.getLogger(__name__)
 
@@ -94,4 +95,29 @@ def products_by_client_id(request, client_id):
                }
     return render(request, "homework_app/sorted_products_by_client_id.html", context)
 
+
+def product_update(request):
+    if request.method == 'POST':
+        form = ProductUpdateForm(request.POST)
+        message = 'Ошибка в данных'
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            price = form.cleaned_data['price']
+            choice_product = form.cleaned_data['choice_product_to_update']
+
+
+            logger.info(f'Получили данные для обновления товара: {title}')
+
+            product = Product.objects.get(id=choice_product.id)
+            product.title = title
+            product.description = description
+            product.price = price
+            product.save()
+            message = 'Товар обновлен'
+
+    else:
+        form = ProductUpdateForm()
+        message = 'Заполните форму'
+    return render(request, 'homework_app/product_update_form.html', {'form' : form, 'message' : message})
 
