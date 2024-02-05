@@ -11,5 +11,8 @@ urlpatterns = [
     path('posts/', views.post_view, name='posts'),
     path('authors_posts/<int:author_id>', views.authors_posts_list, name='authors_posts'),
     path('post1/<int:post_id>', views.post, name='post1'),
+    path('game/', views.choose_game, name='game'),
+    path('author/', views.author_add, name='author'),
+    path('post/', views.post_add, name='post'),
     
 ] 

@@ -2,8 +2,8 @@
 from django.http import HttpResponse
 from random import randint, choice
 import logging
-from .models import Coin
-from seminar_app.models import Author, Post
+from .models import Coin, Author, Post
+from .forms import GameTypeForm, AuthorAddForm, PostAddFormWidget
 from django.shortcuts import render
 
 logger = logging.getLogger(__name__)
@@ -101,3 +101,72 @@ def post(request, post_id):
     post1 = Post.objects.get(id=post_id)
     context = {'post1' : post1}
     return render(request, 'seminar_app/post.html', context) 
+
+# Создайте представление, которое выводит форму выбора. 
+# В зависимости переданных значений представление вызывает одно из трёх представлений, 
+# созданных на прошлом семинаре (если данные прошли проверку, конечно же).
+
+def choose_game(request):
+    if request.method == 'POST':
+        form = GameTypeForm(request.POST)
+        if form.is_valid():
+            game_type = form.cleaned_data['game_type']
+            throws_number = form.cleaned_data['throws_number']
+            logger.info(f'Получили {game_type=}, {throws_number=}.')
+            if game_type == 'C':
+                return heads_tails(request, throws_number)
+            elif game_type == 'D':
+                return dice(request, throws_number)
+            else:
+                return random_number(request, throws_number)
+        
+    else:
+        form = GameTypeForm()
+    return render(request, 'seminar_app/games.html', {'form' : form})
+
+
+def author_add(request):
+    if request.method == 'POST':
+        form = AuthorAddForm(request.POST)
+        message = 'Ошибка в данных'
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            bio = form.cleaned_data['bio']
+            birthday = form.cleaned_data['birthday']
+
+            logger.info(f'Получили данные {name}')
+
+            author = Author(name=name, last_name=last_name, email=email, bio=bio, birthday=birthday)
+            author.save()
+            message = 'Автор сохранен'
+
+    else:
+        form = AuthorAddForm()
+        message = 'Заполните форму'
+    return render(request, 'seminar_app/author_form.html', {'form' : form, 'message' : message})
+
+
+def post_add(request):
+    if request.method == 'POST':
+        form = PostAddFormWidget(request.POST)
+        message = 'Ошибка в данных'
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            publish_date = form.cleaned_data['publish_date']
+            author = form.cleaned_data['author']
+            category = form.cleaned_data['category']
+            is_published = form.cleaned_data['is_published']
+
+            logger.info(f'Получили данные: статья {title}, автор {author}')
+
+            post = Post(title=title, content=content, publish_date=publish_date, author=author, category=category, is_published=is_published)
+            post.save()
+            message = 'Статья сохранена'
+
+    else:
+        form = PostAddFormWidget()
+        message = 'Заполните форму'
+    return render(request, 'seminar_app/post_form.html', {'form' : form, 'message' : message})
