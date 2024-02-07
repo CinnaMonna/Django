@@ -17,7 +17,11 @@ class Command(BaseCommand):
             for i in range(count):
                 post = Post(
                     title=f'Title {i}',
-                    content=f'Content {i}',
+                    content=f'Text {i}: Sed ut perspiciatis, qui in ea voluptate velit esse,' 
+                    f'quam nihil molestiae consequatur, vel illum, quae ab illo inventore' 
+                    f'veritatis et quasi architecto beatae vitae dicta sunt, explicabo.'
+                    f'Sed ut perspiciatis, quia voluptas sit, aspernatur aut odit aut fugit,'
+                    f'sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt',
                     author=author
                 )
 
