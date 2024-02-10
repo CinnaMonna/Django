@@ -21,4 +21,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('seminar_app.urls')),
     path('', include('homework_app.urls')),
+    path('__debug__/', include("debug_toolbar.urls")),
 ]
+ 
